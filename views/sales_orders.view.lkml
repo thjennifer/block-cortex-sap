@@ -1965,16 +1965,16 @@ view: sales_orders {
   dimension: return_order {
     type: string
     sql: IF( ${document_category_vbtyp} = 'H',
-    IF( ${preceding_doc_category_vgtyp} = 'C' AND ${reference_document_vgbel} = ${document_number_of_the_reference_document_vgbel}
-        AND ${item_posnr} = ${reference_item_vgpos},
-      'Returned',
-      'NotReturned'),
-    IF( ${preceding_doc_category_vgtyp} = 'M' AND ${reference_document_vgbel} = ${billing.document_number_of_the_reference_document_vgbel}
-      AND ${reference_item_vgpos} = ${billing.item_number_of_the_reference_item_vgpos}
-      AND ${billing.sales_document_aubel} = ${sales_document_vbeln}
-      AND ${billing.sales_document_item_aupos} = ${item_posnr},
-      'Returned',
-      'NotReturned') ) ;;
+          IF( ${preceding_doc_category_vgtyp} = 'C' AND ${reference_document_vgbel} = ${document_number_of_the_reference_document_vgbel}
+              AND ${item_posnr} = ${reference_item_vgpos},
+            'Returned',
+            'NotReturned'),
+          IF( ${preceding_doc_category_vgtyp} = 'M' AND ${reference_document_vgbel} = ${billing.document_number_of_the_reference_document_vgbel}
+            AND ${reference_item_vgpos} = ${billing.item_number_of_the_reference_item_vgpos}
+            AND ${billing.sales_document_aubel} = ${sales_document_vbeln}
+            AND ${billing.sales_document_item_aupos} = ${item_posnr},
+            'Returned',
+            'NotReturned') ) ;;
     hidden: no
   }
 
@@ -1993,7 +1993,7 @@ view: sales_orders {
       url: "/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_02_c_returned_ordersperformance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_orders.creation_date_erdat_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}"
     }
     hidden: no
- }
+  }
 
   ##################################################### Canceled Orders  ############################################################
   dimension: canceled_order {
@@ -2023,9 +2023,9 @@ view: sales_orders {
   dimension: open_orders {
     type: string
     sql: IF(${deliveries.actual_quantity_delivered_in_sales_units_lfimg} = ${cumulative_order_quantity_kwmeng}
-    AND ${cumulative_order_quantity_kwmeng} = ${billing.actual_billed_quantity_fkimg},'NotOpenOrder','OpenOrder') ;;
+      AND ${cumulative_order_quantity_kwmeng} = ${billing.actual_billed_quantity_fkimg},'NotOpenOrder','OpenOrder') ;;
     hidden: no
-    }
+  }
 
   ##################################################### Sales Order Status  ############################################################
   dimension: sales_order_status {
@@ -2202,7 +2202,7 @@ view: sales_orders {
 
   #************************************************** End of Billing and Pricing *****************************************************#
 
- ##################################################### Sales Order NetValue  ############################################################
+  ##################################################### Sales Order NetValue  ############################################################
   dimension: sales_order_netvalue_local_currency {
     type: number
     sql: ${cumulative_order_quantity_kwmeng} * ${sales_order_net_price_local_currency} ;;

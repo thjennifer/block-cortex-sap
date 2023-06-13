@@ -14,7 +14,7 @@ view: sales_order_schedule_line_dt {
       ORDER BY
           4 DESC
 
-       ;;
+      ;;
   }
 
   measure: count {

@@ -123,7 +123,7 @@ view: vendor_performance {
     hidden: no
   }
 
-    dimension_group: PO_Creation_Date {
+  dimension_group: PO_Creation_Date {
     type: time
     timeframes: [
       raw,
@@ -185,13 +185,13 @@ view: vendor_performance {
     suggest_persist_for: "10 minutes"
     hidden: no
   }
-  
+
   dimension: target_currency_tcurr {
     type: string
     sql: ${TABLE}.TargetCurrency_TCURR ;;
     hidden: no
   }
-  
+
   dimension: currency_key_waers2 {
     type: string
     sql: ${TABLE}.CurrencyKey_WAERS ;;
@@ -426,7 +426,7 @@ view: vendor_performance {
     sql: ${name1} ;;
     hidden: no
   }
-  
+
   dimension: net_order_valuein_pocurrency_netwr {
     type: number
     sql: ${TABLE}.NetOrderValueinPOCurrency_NETWR ;;
@@ -971,7 +971,7 @@ view: vendor_performance {
     link: {
       label: "Delivery Performance Trend"
       url: "/dashboards/cortex_sap_operational::sap_finance_vp_09_a_delivery_performance_trend?Target+Currency={{ _filters['target_currency_tcurr']| url_encode }}&Purchase+Order+Date={{ _filters['vendor_performance.purchasing_document_date_bedat_date']| url_encode }}&Vendor+Name={{ _filters['vendor_performance.name1']| url_encode }}&Company+Code={{ _filters['vendor_performance.company_text_butxt']| url_encode }}&Purchasing+Organization={{ _filters['vendor_performance.purchasing_organization_text_ekotx']| url_encode }}&Purchasing+Group={{ _filters['vendor_performance.purchasing_group_text_eknam']| url_encode }}&Vendor+Country={{ _filters['vendor_performance.country_key_land1']| url_encode }}"
-   }
+    }
   }
 
   measure:  total_delivered{
