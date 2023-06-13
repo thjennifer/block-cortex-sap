@@ -198,7 +198,7 @@
     totals_color: "#808080"
     y_axes: [{label: Average Order Cycle Time, orientation: bottom, series: [{axisId: average_of_order_cycle_time_1,
             id: average_of_order_cycle_time_1, name: Average of Order Cycle Time}],
-        showLabels: false, showValues: false, maxValue: 200, unpinAxis: false, tickDensity: custom,
+        showLabels: false, showValues: false, unpinAxis: false, tickDensity: custom,
         tickDensityCustom: 1, type: linear}]
     x_axis_label: Product
     x_axis_zoom: true
