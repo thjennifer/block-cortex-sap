@@ -5,6 +5,7 @@ view: accounts_payable_turnover_v2 {
 
   fields_hidden_by_default: yes
 
+
   dimension: account_number_of_vendor_or_creditor_lifnr {
     type: string
     sql: ${TABLE}.AccountNumberOfVendorOrCreditor_LIFNR ;;

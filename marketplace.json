@@ -23,7 +23,7 @@
   },
       "models": [
         {
-            "name": "cortex_sap_operational",
+            "name": "qa_cortex_sap_operational",
             "connection_constant": "CONNECTION_NAME"
         }
     ]
