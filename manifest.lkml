@@ -6,7 +6,7 @@ constant: CONNECTION_NAME {
 }
 
 constant: GCP_PROJECT {
-  value: "thjennifer2"
+  value: "thjennifer3"
   export: override_required
 }
 
