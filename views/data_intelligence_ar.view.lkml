@@ -4,7 +4,7 @@ view: data_intelligence_ar {
   # to be used for all fields in this view.
   sql_table_name: `@{GCP_PROJECT}.@{REPORTING_DATASET}.AccountingDocumentsReceivable`
     ;;
-  
+
   parameter: Aging_Interval {
     type: number
     default_value: "10"
@@ -28,6 +28,7 @@ view: data_intelligence_ar {
       label: "JPY"
       value: "JPY"
     }
+    default_value: "USD"
   }
 
   parameter: Day_Sales_Outstanding {
@@ -67,8 +68,9 @@ view: data_intelligence_ar {
 
   dimension: Accounts_Receivable_Global_Currency {
     type: number
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Accounts_Receivable_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Accounts_Receivable_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: round(${Accounts_Receivable_Local_Currency} * ${currency_conversion_new.ukurs},2) ;;
   }
+
 
   dimension: Sold_to_Party_Country {
     type:  string
@@ -117,7 +119,7 @@ view: data_intelligence_ar {
 
   dimension: Bad_Debt_Global_Currency {
     type: number
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Bad_Debt_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Bad_Debt_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: round(${Bad_Debt_Local_Currency} * ${currency_conversion_new.ukurs},2) ;;
   }
 
   dimension: Billing_Document {
@@ -165,7 +167,7 @@ view: data_intelligence_ar {
 
   dimension: Cleared_after_Due_date_Global_Currency {
     type: number
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Cleared_after_Due_date_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Cleared_after_Due_date_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: round(${Cleared_after_Due_date_Local_Currency} * ${currency_conversion_new.ukurs},2) ;;
   }
 
   dimension: Cleared_on_or_before_Due_date_Local_Currency {
@@ -175,8 +177,9 @@ view: data_intelligence_ar {
 
   dimension: Cleared_on_or_before_Due_date_Global__Currency {
     type: number
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Cleared_on_or_before_Due_date_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Cleared_on_or_before_Due_date_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: round(${Cleared_on_or_before_Due_date_Local_Currency} * ${currency_conversion_new.ukurs},2) ;;
   }
+
 
   dimension: Client_ID {
     type: string
@@ -215,7 +218,7 @@ view: data_intelligence_ar {
 
   dimension: Doubtful_Receivables_Global_Currency{
     type: number
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Doubtful_Receivables_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Doubtful_Receivables_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: round(${Doubtful_Receivables_Local_Currency} * ${currency_conversion_new.ukurs},2) ;;
   }
 
   dimension: Exchange_Rate_Type {
@@ -224,8 +227,9 @@ view: data_intelligence_ar {
   }
 
   dimension: fiscal_year_gjahr {
+    label: "Fiscal Year"
      type: string
-     hidden: yes
+     hidden: no
      sql: ${TABLE}.FiscalYear_GJAHR ;;
   }
 
@@ -261,8 +265,8 @@ view: data_intelligence_ar {
 
   dimension: Open_and_Not_Due_Global_Currency{
     type: number
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Open_and_Not_Due_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Open_and_Not_Due_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-  }
+    sql: round(${Open_and_Not_Due_Local_Currency} * ${currency_conversion_new.ukurs},2) ;;
+ }
 
   dimension: Open_and_Over_Due_Local_Currency{
     type: number
@@ -271,7 +275,7 @@ view: data_intelligence_ar {
 
   dimension: Open_and_Over_Due_Global_Currency{
     type: number
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Open_and_Over_Due_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Open_and_Over_Due_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: round(${Open_and_Over_Due_Local_Currency} * ${currency_conversion_new.ukurs},2) ;;
   }
 
   dimension_group: Posting {
@@ -289,18 +293,15 @@ view: data_intelligence_ar {
     sql: ${TABLE}.PostingDateInTheDocument_BUDAT ;;
   }
 
-
-
   dimension: Sales_Local_Currency {
     type: number
     sql: ${TABLE}.Sales ;;
   }
 
-
   dimension: Sales_Global_Currency{
     type: number
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Sales_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Sales_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-  }
+    sql: round(${Sales_Local_Currency} * ${currency_conversion_new.ukurs},2) ;;
+ }
 
   dimension: Written_off_Amount_Local_Currency {
     type: number
@@ -309,7 +310,7 @@ view: data_intelligence_ar {
 
   dimension: Written_off_Amount {
     type: number
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Written_off_Amount_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Written_off_Amount_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: round(${Written_off_Amount_Local_Currency} * ${currency_conversion_new.ukurs},2) ;;
   }
 
   dimension: Days_in_Arrear {
