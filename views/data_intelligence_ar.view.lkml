@@ -227,7 +227,7 @@ view: data_intelligence_ar {
   }
 
   dimension: fiscal_year_gjahr {
-    label: "Fiscal Year"
+     label: "Fiscal Year"
      type: string
      hidden: no
      sql: ${TABLE}.FiscalYear_GJAHR ;;
