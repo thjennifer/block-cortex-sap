@@ -1,10 +1,10 @@
 constant: CONNECTION_NAME {
-  value: "qa-thjennifer3"
+  value: "qa-thjennifer1"
   export: override_required
 }
 
 constant: GCP_PROJECT {
-  value: "thjennifer3"
+  value: "thjennifer1"
   export: override_required
 }
 
@@ -17,4 +17,3 @@ constant: CLIENT {
   value: "100"
   export: override_required
 }
-
