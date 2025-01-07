@@ -1,20 +1,20 @@
 constant: CONNECTION_NAME {
-  value: "cortex"
+  value: "cortex-sap-qa"
   export: override_required
 }
 
 constant: GCP_PROJECT {
-  value: "GCP Project ID"
+  value: "kittycorn-looker-qa"
   export: override_required
 }
 
 constant: REPORTING_DATASET {
-  value: "Reporting Dataset Name"
+  value: "CORTEX_ECC_REPORTING"
   export: override_required
 }
 
 constant: CLIENT {
-  value: "Client ID"
+  value: "100"
   export: override_required
 }
 
